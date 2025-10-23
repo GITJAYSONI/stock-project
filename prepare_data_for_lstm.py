@@ -22,7 +22,7 @@ def fetch_and_save_training_data(ticker, period='5y'):
     stock = yf.Ticker(ticker)
     data = stock.history(period=period)
     
-    print(f"✅ Fetched {len(data)} days of data")
+    print(f" Fetched {len(data)} days of data")
     print(f"Date range: {data.index[0]} to {data.index[-1]}")
     
     # Save raw data
