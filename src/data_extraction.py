@@ -425,3 +425,4 @@ st.sidebar.caption("""
 - Other stocks stay cached (saves CPU)
 - Auto-refresh only updates current view
 """)
+

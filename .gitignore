@@ -43,3 +43,6 @@ models/
 
 # Logs
 *.log
+
+# Allow tracking a workspace settings file while ignoring the rest of .vscode/
+!.vscode/settings.json

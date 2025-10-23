@@ -91,3 +91,6 @@ print("   data/           → Raw CSV files")
 print("   data/           → Numpy training files (.npy)")
 print("   models/         → Scaler files (.pkl)")
 print("\n Next step: Watch Tutorial 2 and train LSTM model!")
+
+
+
