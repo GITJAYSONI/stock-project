@@ -8,11 +8,11 @@ import time
 # Page config (tittle, icon, layout)
 st.set_page_config(
     page_title="Smart Stock Monitor",
-    page_icon="📈",
+    page_icon="",
     layout="wide"
 )
 
-# ✅ Smart caching with ticker-specific cache keys
+#  Smart caching with ticker-specific cache keys
 @st.cache_data(ttl=30, show_spinner=False)
 def fetch_market_data(ticker, force_refresh=False):
     """
@@ -36,7 +36,7 @@ def fetch_market_data(ticker, force_refresh=False):
 
 # Lightweight stock database
 STOCK_DATABASE = {
-    "🔥 Popular Stocks": {
+    " Popular Stocks": {
         'Apple': 'AAPL',
         'Microsoft': 'MSFT',
         'Google': 'GOOGL',
@@ -48,7 +48,7 @@ STOCK_DATABASE = {
         'PayPal': 'PYPL',
         'Adobe': 'ADBE'
     },
-    "💰 Financials": {
+    "$ Financials": {
         'JPMorgan': 'JPM',
         'Bank of America': 'BAC',
         'Visa': 'V',
@@ -58,7 +58,7 @@ STOCK_DATABASE = {
         'American Express': 'AXP',
         'Wells Fargo': 'WFC'
     },
-    "🏥 Healthcare": {
+    "+ Healthcare": {
         'Johnson & Johnson': 'JNJ',
         'UnitedHealth': 'UNH',
         'Pfizer': 'PFE',
@@ -67,7 +67,7 @@ STOCK_DATABASE = {
         'AbbVie': 'ABBV',
         'Eli Lilly': 'LLY'
     },
-    "🛍️ Consumer": {
+    "& Consumer": {
         'Walmart': 'WMT',
         'Costco': 'COST',
         'Nike': 'NKE',
@@ -77,7 +77,7 @@ STOCK_DATABASE = {
         'PepsiCo': 'PEP',
         'Home Depot': 'HD'
     },
-    "🚗 Automotive": {
+    " Automotive": {
         'Tesla': 'TSLA',
         'Ford': 'F',
         'General Motors': 'GM',
@@ -85,7 +85,7 @@ STOCK_DATABASE = {
         'Lucid': 'LCID',
         'Nio': 'NIO'
     },
-    "🥇 Precious Metals": {
+    " Precious Metals": {
         'Gold (GLD ETF)': 'GLD',
         'Silver (SLV ETF)': 'SLV',
         'Gold Futures': 'GC=F',
@@ -93,7 +93,7 @@ STOCK_DATABASE = {
         'Platinum': 'PPLT',
         'Copper': 'CPER'
     },
-    "🛢️ Energy": {
+    " Energy": {
         'Crude Oil WTI': 'CL=F',
         'Natural Gas': 'NG=F',
         'US Oil Fund': 'USO',
@@ -101,7 +101,7 @@ STOCK_DATABASE = {
         'Chevron': 'CVX',
         'ConocoPhillips': 'COP'
     },
-    "🌾 Agriculture": {
+    " Agriculture": {
         'Corn': 'ZC=F',
         'Wheat': 'ZW=F',
         'Soybeans': 'ZS=F',
@@ -109,7 +109,7 @@ STOCK_DATABASE = {
         'Sugar': 'SB=F',
         'Cotton': 'CT=F'
     },
-    "🪙 Crypto": {
+    " Crypto": {
         'Bitcoin': 'BTC-USD',
         'Ethereum': 'ETH-USD',
         'Solana': 'SOL-USD',
@@ -127,11 +127,11 @@ if 'last_refresh_time' not in st.session_state:
     st.session_state.last_refresh_time = {}
 
 # Header
-st.title("📈 Smart Stock Monitor")
-st.caption("🎯 Selective refresh • Low CPU • Fast updates")
+st.title(" Smart Stock Monitor")
+st.caption(" Selective refresh • Low CPU • Fast updates")
 
 # Sidebar
-st.sidebar.header("🎯 Stock Selection")
+st.sidebar.header(" Stock Selection")
 
 # Category selection
 category = st.sidebar.selectbox(
@@ -149,16 +149,16 @@ asset_name = st.sidebar.selectbox(
 )
 ticker = assets[asset_name]
 
-st.sidebar.success(f"📊 **{ticker}**")
+st.sidebar.success(f" **{ticker}**")
 
-# ✅ SELECTIVE REFRESH BUTTON - Only for current stock
+#  SELECTIVE REFRESH BUTTON - Only for current stock
 st.sidebar.markdown("---")
-st.sidebar.subheader("🔄 Refresh Controls")
+st.sidebar.subheader("Refresh Controls")
 
 col1, col2 = st.sidebar.columns(2)
 
 with col1:
-    if st.button("🔄 Refresh This Stock", use_container_width=True, type="primary"):
+    if st.button(" Refresh This Stock", use_container_width=True, type="primary"):
         # Clear cache ONLY for this specific ticker
         fetch_market_data.clear()
         
@@ -170,17 +170,17 @@ with col1:
         # Record refresh time
         st.session_state.last_refresh_time[ticker] = datetime.now()
         
-        st.sidebar.success(f"✅ {ticker} refreshed!")
+        st.sidebar.success(f" {ticker} refreshed!")
         time.sleep(0.5)  # Brief pause to show success message
         st.rerun()
 
 with col2:
-    if st.button("🔄 Refresh All", use_container_width=True):
+    if st.button(" Refresh All", use_container_width=True):
         # Clear entire cache
         st.cache_data.clear()
         st.session_state.refresh_counter = {}
         st.session_state.last_refresh_time = {}
-        st.sidebar.success("✅ All data refreshed!")
+        st.sidebar.success(" All data refreshed!")
         time.sleep(0.5)
         st.rerun()
 
@@ -190,16 +190,16 @@ if ticker in st.session_state.last_refresh_time:
     time_since = (datetime.now() - last_refresh).total_seconds()
     
     if time_since < 60:
-        st.sidebar.info(f"⏰ Last refresh: {int(time_since)}s ago")
+        st.sidebar.info(f" Last refresh: {int(time_since)}s ago")
     else:
-        st.sidebar.info(f"⏰ Last refresh: {int(time_since/60)}m ago")
+        st.sidebar.info(f" Last refresh: {int(time_since/60)}m ago")
 
 if ticker in st.session_state.refresh_counter:
-    st.sidebar.caption(f"🔢 Refreshed {st.session_state.refresh_counter[ticker]} times")
+    st.sidebar.caption(f"Refreshed {st.session_state.refresh_counter[ticker]} times")
 
 # Auto-refresh settings
 st.sidebar.markdown("---")
-st.sidebar.subheader("⚙️ Auto-Refresh")
+st.sidebar.subheader(" Auto-Refresh")
 
 auto_refresh = st.sidebar.checkbox("Enable Auto-Refresh", value=False)
 
@@ -211,16 +211,16 @@ if auto_refresh:
         value=60,
         step=30
     )
-    st.sidebar.info(f"⏱️ Auto-refreshing every {refresh_interval}s")
+    st.sidebar.info(f"⏱ Auto-refreshing every {refresh_interval}s")
     
     # Auto-refresh countdown
     countdown_placeholder = st.sidebar.empty()
 else:
-    st.sidebar.info("⏸️ Auto-refresh disabled")
+    st.sidebar.info("⏸ Auto-refresh disabled")
 
 # Display options
 st.sidebar.markdown("---")
-st.sidebar.subheader("📊 Display Options")
+st.sidebar.subheader(" Display Options")
 show_chart = st.sidebar.checkbox("Show Chart", value=True)
 show_volume = st.sidebar.checkbox("Show Volume", value=False)
 show_table = st.sidebar.checkbox("Show Data Table", value=False)
@@ -232,7 +232,7 @@ if st.session_state.last_refresh_time:
     recent_tickers = list(st.session_state.last_refresh_time.keys())[-5:]
     for recent_ticker in reversed(recent_tickers):
         if recent_ticker != ticker:  # Don't show current stock
-            if st.sidebar.button(f"↪️ {recent_ticker}", key=f"quick_{recent_ticker}"):
+            if st.sidebar.button(f"↪ {recent_ticker}", key=f"quick_{recent_ticker}"):
                 # Find this ticker in database and switch to it
                 for cat, stocks in STOCK_DATABASE.items():
                     for name, symbol in stocks.items():
@@ -261,7 +261,7 @@ try:
         # Asset info header
         col_info1, col_info2 = st.columns([3, 1])
         with col_info1:
-            st.subheader(f"📊 {asset_name}")
+            st.subheader(f"{asset_name}")
             st.caption(f"Ticker: {ticker} • Category: {category}")
         with col_info2:
             st.metric(
@@ -277,29 +277,29 @@ try:
         
         with col1:
             st.metric(
-                "💰 Current Price",
+                " Current Price",
                 f"${current_price:.2f}",
                 f"{change:+.2f} ({change_pct:+.2f}%)"
             )
         
         with col2:
-            st.metric("📈 High", f"${data['High'].max():.2f}")
+            st.metric(" High", f"${data['High'].max():.2f}")
         
         with col3:
-            st.metric("📉 Low", f"${data['Low'].min():.2f}")
+            st.metric(" Low", f"${data['Low'].min():.2f}")
         
         with col4:
             volume = data['Volume'].sum()
             if volume > 1e9:
-                st.metric("📦 Volume", f"{volume/1e9:.2f}B")
+                st.metric(" Volume", f"{volume/1e9:.2f}B")
             elif volume > 1e6:
-                st.metric("📦 Volume", f"{volume/1e6:.1f}M")
+                st.metric(" Volume", f"{volume/1e6:.1f}M")
             else:
-                st.metric("📦 Volume", f"{volume:,.0f}")
+                st.metric(" Volume", f"{volume:,.0f}")
         
         with col5:
             price_range = data['High'].max() - data['Low'].min()
-            st.metric("📊 Range", f"${price_range:.2f}")
+            st.metric(" Range", f"${price_range:.2f}")
         
         # Charts
         if show_chart:
@@ -357,7 +357,7 @@ try:
         # Data table
         if show_table:
             st.markdown("---")
-            st.subheader("📋 Recent Trading Data")
+            st.subheader(" Recent Trading Data")
             
             recent = data.tail(15)[['Open', 'High', 'Low', 'Close', 'Volume']].copy()
             recent.index = recent.index.strftime('%H:%M:%S')
@@ -374,22 +374,22 @@ try:
         footer_col1, footer_col2, footer_col3 = st.columns(3)
         
         with footer_col1:
-            st.caption(f"⏰ Data fetched: {fetch_time.strftime('%H:%M:%S')}")
+            st.caption(f"Data fetched: {fetch_time.strftime('%H:%M:%S')}")
         
         with footer_col2:
-            st.caption(f"📊 Data points: {len(data)}")
+            st.caption(f" Data points: {len(data)}")
         
         with footer_col3:
             if auto_refresh:
-                st.caption(f"🔄 Auto-refresh: ON ({refresh_interval}s)")
+                st.caption(f"Auto-refresh: ON ({refresh_interval}s)")
             else:
-                st.caption("⏸️ Auto-refresh: OFF")
+                st.caption("⏸ Auto-refresh: OFF")
         
         # Auto-refresh logic
         if auto_refresh:
             # Show countdown
             for remaining in range(refresh_interval, 0, -1):
-                countdown_placeholder.info(f"⏱️ Next refresh in {remaining}s")
+                countdown_placeholder.info(f" Next refresh in {remaining}s")
                 time.sleep(1)
             
             # Clear cache for this ticker only
@@ -402,24 +402,24 @@ try:
             st.rerun()
     
     else:
-        st.error("❌ No data available")
+        st.error(" No data available")
         st.info("""
             **Possible reasons:**
             - Market is closed
             - Invalid ticker
             - Connection issue
             
-            Try clicking "🔄 Refresh This Stock"
+            Try clicking " Refresh This Stock"
         """)
 
 except Exception as e:
-    st.error(f"❌ Error: {str(e)}")
-    st.info("Click '🔄 Refresh This Stock' to try again")
+    st.error(f" Error: {str(e)}")
+    st.info("Click ' Refresh This Stock' to try again")
 
 # Performance info
 st.sidebar.markdown("---")
 st.sidebar.caption("""
-💡 **How it works:**
+ **How it works:**
 - "Refresh This Stock" = Updates only current ticker
 - "Refresh All" = Clears all cached data
 - Other stocks stay cached (saves CPU)
